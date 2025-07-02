@@ -20,10 +20,10 @@
                         <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Our Services</a>
+                        <a class="nav-link" href="#services">Our Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About Us</a>
+                        <a class="nav-link" href="#about">Mentors</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact Us</a>
@@ -50,67 +50,87 @@
                 <p>Choose from our expertly designed programming courses</p>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-12 col-sm-24">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fab fa-python"></i>
                         </div>
                         <h4>Python Programming</h4>
                         <p>Master Python from basics to advanced concepts. Learn web development, data science, and automation with hands-on projects.</p>
-                        <div class="price">₹4,999</div>
-                        <a href="#contact" class="btn-custom">Enroll Now</a>
+                        <div class="price">₹399</div>
+                        <button class="open-popup-btn btn-primary" onclick="openPopup('course1')"> View Syllabus </button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-12 col-sm-24">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fab fa-cuttlefish"></i>
                         </div>
                         <h4>C Programming</h4>
                         <p>Build strong programming fundamentals with C. Understand memory management, data structures, and system programming.</p>
-                        <div class="price">₹3,999</div>
-                        <a href="#contact" class="btn-custom">Enroll Now</a>
+                        <div class="price">₹499</div>
+                        <button class="open-popup-btn btn-primary" onclick="openPopup('course2')"> View Syllabus </button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-12 col-sm-24">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fas fa-code"></i>
                         </div>
-                        <h4>C + Python Combo</h4>
+                        <h4>Full stack Development</h4>
                         <p>Complete programming bundle combining C fundamentals with Python's versatility. Perfect for comprehensive skill development.</p>
-                        <div class="price">₹7,499</div>
-                        <a href="#contact" class="btn-custom">Enroll Now</a>
+                        <div class="price">Coming Soon</div>
+                        <button class="open-popup-btn btn-primary btn-primary" onclick="openPopup('course3')"> View Syllabus </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    <!-- Popup section -->
+    <section>
+        <div class="backdrop" id="backdrop" onclick="closePopup()"></div>
+        
+        <div class="popup" id="popup">
+            <div class="popup-header">
+                <div class="popup-title" id="popupTitle">Loading...</div>
+                <div class="popup-subtitle" id="popupSubtitle">Please wait while we load the content</div>
+                <button class="close-btn" onclick="closePopup()">&times;</button>
+            </div>
+        
+            <div class="popup-content" id="popupContent">
+                <div class="loading-message" id="loadingMessage">
+                    <div style="font-size: 18px; margin-bottom: 10px;">📊</div>
+                    <div>Loading Syllabus</div>
+                </div>
+            </div>
+        
+            <div class="popup-footer">
+                <a href="#contact"><button class="contact-btn" onclick="closePopup()">
+                    Contact Us
+                </button></a>
+            </div>
+        </div>
+    </section>
     <!-- About Us Section -->
     <section id="about" class="section-padding about-section">
         <div class="container">
             <div class="section-title">
-                <h2>About Our Teachers</h2>
-                <p>Meet our experienced instructors dedicated to your success</p>
+                <h2>About Our Mentors</h2>
+                <p>Meet our instructors dedicated to your success</p>
             </div>
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="teacher-card">
-                        <div class="teacher-img">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4>Teacher 1</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>
+                            <img class= "teacher-img" src="Assets/Profile pic.png" alt="">
+                        <h4>G. Lohith Krishna</h4>
+                        <p>Lohith is a certified developer in both C and Python with a passion for teaching and simplifying programming concepts. He specializes in making technical topics approachable through practical examples and hands-on learning. His goal is to help students build a strong foundation, gain confidence, and apply coding skills effectively in real-world scenarios.</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="teacher-card">
-                        <div class="teacher-img">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4>Teacher 2</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>
+                            <img class= "teacher-img" src="Assets/Jaideep.jpg" alt="">
+                        <h4>G. Jaideep</h4>
+                        <p>Jaideep is a certified C and Python developer known for his structured approach and clear teaching style. He focuses on guiding students through logical problem-solving and practical coding techniques. With a strong commitment to student success, Jaideep helps learners grasp core concepts and develop the confidence to tackle real programming challenges.
                     </div>
                 </div>
             </div>
@@ -148,7 +168,7 @@
                                 <option value="">Select a course</option>
                                 <option value="Python Programming">Python Programming</option>
                                 <option value="C Programming">C Programming</option>
-                                <option value="C + Python Combo">C + Python Combo</option>
+                                <option value="C + Python Combo">Full Stack</option>
                             </select>
                         </div>
                         <div class="mb-3">

@@ -288,17 +288,17 @@ function scrollToTop() {
     });
 }
 
-//Scroll To Top
-window.addEventListener('scroll', function () {
-    const scrollButton = document.getElementById('scrollToTop');
-    if (scrollButton) {
-        if (window.pageYOffset > 300) {
-            scrollButton.style.display = 'block';
-        } else {
-            scrollButton.style.display = 'none';
-        }
-    }
-});
+// //Scroll To Top
+// window.addEventListener('scroll', function () {
+//     const scrollButton = document.getElementById('scrollToTop');
+//     if (scrollButton) {
+//         if (window.pageYOffset > 300) {
+//             scrollButton.style.display = 'block';
+//         } else {
+//             scrollButton.style.display = 'none';
+//         }
+//     }
+// });
 
 // Prevent form submission on Enter key (except for textarea)
 document.addEventListener('keypress', function (e) {
@@ -479,9 +479,9 @@ document.addEventListener('keypress', function (e) {
                 popupContent.innerHTML = `
                     <div class="error-message">
                         <div style="font-size: 18px; margin-bottom: 10px;">⚠️</div>
-                        <div>Could not load topics from Google Sheet.</div>
+                        <div>Syllabus is not yet updated</div>
                         <div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">
-                            Please check your Sheet ID and permissions.
+                            Please check after some time.
                         </div>
                     </div>
                 `;

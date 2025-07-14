@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SHASHNA Academy</title>
-    <link rel="shortcut icon" href="/Assets/Logo-Favicon.ico" type="image/x-icon">
+    <title>Skillectra</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -11,7 +10,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#home">SHASHNA</a>
+            <a class="navbar-brand" href="#home">Skillectra</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,7 +36,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container">
-            <h1>Master Programming with SHASHNA</h1>
+            <h1>Master Programming with US</h1>
             <p>Transform your career with our comprehensive programming courses</p>
             <a href="#services" class="btn-custom">Explore Courses</a>
         </div>
@@ -51,7 +50,7 @@
                 <p>Choose from our expertly designed programming courses</p>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-12 col-sm-24">
+                <div class="col-lg-4 col-md-6">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fab fa-python"></i>
@@ -59,10 +58,28 @@
                         <h4>Python Programming</h4>
                         <p>Master Python from basics to advanced concepts. Learn web development, data science, and automation with hands-on projects.</p>
                         <div class="price">₹399</div>
-                        <button class="open-popup-btn btn-primary" onclick="openPopup('course1')"> View Syllabus </button>
+                        <div class="course-launch">
+                            <div class="launch-timer">
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="days1">00</div>
+                                    <div class="timer-label">Days</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="hours1">00</div>
+                                    <div class="timer-label">Hours</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="minutes1">00</div>
+                                    <div class="timer-label">Minutes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="open-popup-btn btn-primary" onclick="openPopup('course1')">View Syllabus</button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-24">
+                <div class="col-lg-4 col-md-6">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fab fa-cuttlefish"></i>
@@ -70,23 +87,46 @@
                         <h4>C Programming</h4>
                         <p>Build strong programming fundamentals with C. Understand memory management, data structures, and system programming.</p>
                         <div class="price">₹499</div>
-                        <button class="open-popup-btn btn-primary" onclick="openPopup('course2')"> View Syllabus </button>
+                        <div class="course-launch">
+                            <div class="launch-timer">
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="days2">00</div>
+                                    <div class="timer-label">Days</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="hours2">00</div>
+                                    <div class="timer-label">Hours</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-segment">
+                                    <div class="timer-value" id="minutes2">00</div>
+                                    <div class="timer-label">Minutes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="open-popup-btn btn-primary" onclick="openPopup('course2')">View Syllabus</button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-24">
+                <div class="col-lg-4 col-md-6">
                     <div class="course-card">
                         <div class="course-icon">
                             <i class="fas fa-code"></i>
                         </div>
-                        <h4>Full stack Development</h4>
+                        <h4>Full Stack Development</h4>
                         <p>Complete programming bundle combining C fundamentals with Python's versatility. Perfect for comprehensive skill development.</p>
-                        <div class="price">Coming Soon</div>
-                        <button class="open-popup-btn btn-primary btn-primary" onclick="openPopup('course3')"> View Syllabus </button>
+                        <div class="price">TBA</div>
+                        <div class="course-launch">
+                            <div class="launch-heading">Launching Soon!</div>
+                            <div class="launch-heading">Come Later and Check</div>
+                        </div>
+                        <button class="open-popup-btn btn-primary" onclick="openPopup('course3')">View Syllabus</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Popup section -->
     <section>
         <div class="backdrop" id="backdrop" onclick="closePopup()"></div>
@@ -112,6 +152,7 @@
             </div>
         </div>
     </section>
+
     <!-- About Us Section -->
     <section id="about" class="section-padding about-section">
         <div class="container">
@@ -122,16 +163,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="teacher-card">
-                            <img class= "teacher-img" src="/Assets/Profile Pic.png" alt="">
+                        <img class="teacher-img" src="./Assets/Profile Pic.png" alt="Mentor Lohith Krishna">
                         <h4>G. Lohith Krishna</h4>
-                        <p>Lohith is a certified developer in both C and Python with a passion for teaching and simplifying programming concepts. He specializes in making technical topics approachable through practical examples and hands-on learning. His goal is to help students build a strong foundation, gain confidence, and apply coding skills effectively in real-world scenarios.</p>
+                        <p>Lohith is a certified developer in both C and Python with a passion for teaching and simplifying programming concepts. He specializes in making technical topics approachable through practical examples and hands-on learning.</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="teacher-card">
-                            <img class= "teacher-img" src="/Assets/Profile Pic.png" alt="">
+                        <img class="teacher-img" src="/Assets/Jaideep.jpg" alt="Mentor Jaideep">
                         <h4>G. Jaideep</h4>
-                        <p>Jaideep is a certified C and Python developer known for his structured approach and clear teaching style. He focuses on guiding students through logical problem-solving and practical coding techniques. With a strong commitment to student success, Jaideep helps learners grasp core concepts and develop the confidence to tackle real programming challenges.
+                        <p>Jaideep is a certified C and Python developer known for his structured approach and clear teaching style. He focuses on guiding students through logical problem-solving and practical coding techniques.</p>
                     </div>
                 </div>
             </div>
@@ -169,7 +210,7 @@
                                 <option value="">Select a course</option>
                                 <option value="Python Programming">Python Programming</option>
                                 <option value="C Programming">C Programming</option>
-                                <option value="Full Stack">Full Stack Development</option>
+                                <option value="Full Stack Development">Full Stack Development</option>
                             </select>
                         </div>
                         <div class="mb-3">

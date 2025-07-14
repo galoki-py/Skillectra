@@ -1,26 +1,10 @@
 /* CSS Variables */
 :root {
     --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --text-color: #2c3e50;
-    --light-bg: #ecf0f1;
-}
-
-/* Base Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-}
-
-/* Navigation Styles *//* CSS Variables */
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --text-color: #2c3e50;
-    --light-bg: #ecf0f1;
+    --secondary-color: #716fff;
+    --accent-color: #ff914d;
+    --text-color: #000;
+    --light-bg: #fff;
 }
 
 /* Base Styles */
@@ -40,6 +24,7 @@ body {
     font-weight: bold;
     font-size: 1.8rem;
     color: white !important;
+    padding-left: 0px !important;
 }
 
 .navbar-nav .nav-link {
@@ -90,8 +75,8 @@ body {
 }
 
 .btn-custom:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
+    background: #fc7e30;
+    transition: ease-in 0.5s;
     color: white;
     text-decoration: none;
 }
@@ -107,8 +92,8 @@ body {
 }
 
 .btn-submit:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
+    background: #4d4aff;
+    transition: ease-in 0.5s;
 }
 
 /* Section Styles */
@@ -137,7 +122,7 @@ body {
 .course-card {
     background: white;
     border-radius: 15px;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -197,6 +182,7 @@ body {
     font-size: 3rem;
     color: var(--secondary-color);
 }
+
 /* Contact Section */
 .contact-section {
     background: var(--light-bg);
@@ -251,6 +237,8 @@ body {
     text-align: center;
     padding: 40px 0;
 }
+
+/* Popup Styles */
 .buttons-container {
     display: flex;
     gap: 20px;
@@ -272,18 +260,8 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    background: linear-gradient(45deg, #ff914d, #ff6200);
     box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-}
-
-.btn-secondary {
-    background: linear-gradient(45deg, #4ecdc4, #44a08d);
-    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
-}
-
-.btn-tertiary {
-    background: linear-gradient(45deg, #f093fb, #f5576c);
-    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
 }
 
 .open-popup-btn:hover {
@@ -403,7 +381,6 @@ body {
 }
 
 .dropdown-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(66, 153, 225, 0.3);
 }
 
@@ -463,12 +440,6 @@ body {
     color: #718096;
 }
 
-.error-message {
-    text-align: center;
-    padding: 40px;
-    color: #e53e3e;
-}
-
 .popup-footer {
     padding: 20px 30px 25px;
     border-top: 1px solid #e0e6ed;
@@ -477,7 +448,7 @@ body {
 .contact-btn {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(45deg, #48bb78, #38a169);
+    background: linear-gradient(45deg, #716fff , #2d2b85);
     color: white;
     border: none;
     border-radius: 12px;
@@ -489,22 +460,220 @@ body {
 }
 
 .contact-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(72, 187, 120, 0.3);
-    background: linear-gradient(45deg, #38a169, #2f855a);
+    background: linear-gradient(45deg, #4e4bfb, #0300a5);
+}
+
+/* Countdown Timer Styles */
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--light-bg);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    animation: fadeInUp 1s ease;
+}
+
+.countdown-timer div {
+    text-align: center;
+}
+
+.countdown-timer .time {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+}
+
+.countdown-timer .label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Course Launch Timer Styles */
+.course-launch {
+    margin: 25px 0;
+    text-align: center;
+    perspective: 500px;
+}
+
+.launch-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6b6b, #ee5a52, #ff6b6b);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 3s linear infinite;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.launch-timer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.timer-segment {
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    padding: 12px 8px;
+    min-width: 70px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(52, 152, 219, 0.15);
+}
+
+.timer-segment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+    background-size: 200% auto;
+    animation: gradientShift 3s linear infinite;
+}
+
+.timer-segment::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(231, 76, 60, 0.05) 100%);
+    z-index: -1;
+}
+
+.timer-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.timer-label {
+    font-size: 0.65rem;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.timer-separator {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    padding: 0 5px;
+    transform: translateY(-5px);
+    opacity: 0.8;
+}
+
+.timer-segment:hover {
+    transform: translateY(-5px) rotateX(10deg);
+    box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+}
+
+.timer-segment:first-child:hover {
+    animation: pulseGlow 1.5s infinite;
+}
+
+.launched-message {
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+    transform: scale(1);
+    animation: celebrate 0.5s ease infinite alternate;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
 
+@keyframes gradientShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(52, 152, 219, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+}
+
+@keyframes celebrate {
+    to { transform: scale(1.05); }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .course-card,
+    .teacher-card {
+        margin-bottom: 20px;
+    }
+    
+    .teacher-img {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+    }
+    
     .popup {
         width: 90%;
         height: 60vh;
@@ -519,325 +688,14 @@ body {
     .open-popup-btn {
         min-width: 250px;
     }
-}
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2.5rem;
+    
+    .timer-segment {
+        min-width: 60px;
+        padding: 10px 5px;
     }
     
-    .hero-section p {
-        font-size: 1.1rem;
-    }
-    
-    .section-title h2 {
-        font-size: 2rem;
-    }
-    
-    .course-card,
-    .teacher-card {
-        margin-bottom: 20px;
-    }
-    
-    .teacher-img {
-        width: 120px;
-        height: 120px;
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .section-padding {
-        padding: 60px 0;
-    }
-    
-    .hero-section {
-        padding: 80px 0;
-    }
-    
-    .hero-section h1 {
-        font-size: 2rem;
-    }
-    
-    .contact-form {
-        padding: 1.5rem;
-    }
-    
-    .btn-custom,
-    .btn-submit {
-        padding: 10px 25px;
-        font-size: 0.9rem;
-    }
-}
-.navbar {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.8rem;
-    color: white !important;
-}
-
-.navbar-nav .nav-link {
-    color: white !important;
-    margin: 0 10px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: #f39c12 !important;
-}
-
-/* Hero Section */
-.hero-section {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    padding: 100px 0;
-    text-align: center;
-}
-
-.hero-section h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    animation: fadeInUp 1s ease;
-}
-
-.hero-section p {
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease 0.3s both;
-}
-
-/* Button Styles */
-.btn-custom {
-    background: var(--accent-color);
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    animation: fadeInUp 1s ease 0.6s both;
-}
-
-.btn-custom:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
-    color: white;
-    text-decoration: none;
-}
-
-.btn-submit {
-    background: var(--secondary-color);
-    color: white;
-    padding: 12px 40px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-submit:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-}
-
-/* Section Styles */
-.section-padding {
-    padding: 80px 0;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-title h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.section-title p {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-}
-
-/* Course Cards */
-.course-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 30px;
-    height: 100%;
-}
-
-.course-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.course-icon {
-    font-size: 3rem;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-}
-
-.course-card h4 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-.price {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--accent-color);
-    margin: 20px 0;
-}
-
-/* About Section */
-.about-section {
-    background: var(--light-bg);
-}
-
-.teacher-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    height: 100%;
-}
-
-.teacher-img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    background: var(--light-bg);
-    border: 5px solid var(--secondary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: var(--secondary-color);
-}
-
-/* Contact Section */
-.contact-section {
-    background: var(--light-bg);
-}
-
-.contact-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* Form Styles */
-.form-control {
-    border-radius: 10px;
-    border: 2px solid #ddd;
-    padding: 12px 15px;
-    transition: border-color 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-}
-
-.form-label {
-    font-weight: 500;
-    color: var(--text-color);
-    margin-bottom: 8px;
-}
-
-/* Alert Styles */
-.alert {
-    border-radius: 10px;
-    border: none;
-}
-
-.alert-success {
-    background: #d4edda;
-    color: #155724;
-}
-
-.alert-danger {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-/* Footer */
-.footer {
-    background: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 40px 0;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-section p {
-        font-size: 1.1rem;
-    }
-    
-    .section-title h2 {
-        font-size: 2rem;
-    }
-    
-    .course-card,
-    .teacher-card {
-        margin-bottom: 20px;
-    }
-    
-    .teacher-img {
-        width: 120px;
-        height: 120px;
-        font-size: 2.5rem;
+    .timer-value {
+        font-size: 1.6rem;
     }
 }
 

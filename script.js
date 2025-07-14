@@ -308,175 +308,175 @@ document.addEventListener('keypress', function (e) {
 });
 
 // Configuration for different sheets
-        const SHEET_CONFIGS = {
-            course2: {
-                sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
-                sheetName: 'C Syllabus',
-                title: 'C Programming Course',
-                subtitle: 'Master C programming from basics to advanced',
-                cache: null,
-                lastLoaded: null
+const SHEET_CONFIGS = {
+    course2: {
+        sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
+        sheetName: 'C Syllabus',
+        title: 'C Programming Course',
+        subtitle: 'Master C programming from basics to advanced',
+        cache: null,
+        lastLoaded: null
+    },
+    course1: {
+        sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
+        sheetName: 'Python Syllabus',
+        title: 'Python Course',
+        subtitle: 'Learn Python programming step by step',
+        cache: null,
+        lastLoaded: null
+    },
+    course3: {
+        sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
+        sheetName: 'Web-Dev',
+        title: 'Web Development',
+        subtitle: 'Build modern web applications',
+        cache: null,
+        lastLoaded: null
+    }
+};
+
+// Cache duration (5 minutes)
+const CACHE_DURATION = 5 * 60 * 1000;
+
+let currentCourse = null;
+
+// Optimized sheet loading with caching
+async function loadSheetData(courseKey) {
+    const config = SHEET_CONFIGS[courseKey];
+
+    // Check cache first
+    if (config.cache && config.lastLoaded &&
+        (Date.now() - config.lastLoaded) < CACHE_DURATION) {
+        console.log(`Using cached data for ${courseKey}`);
+        return config.cache;
+    }
+
+    const sheetUrl = `https://docs.google.com/spreadsheets/d/${config.sheetId}/gviz/tq?tqx=out:json&sheet=${config.sheetName}`;
+
+    try {
+        console.log(`Loading fresh data for ${courseKey}`);
+        const response = await fetch(sheetUrl);
+        const text = await response.text();
+
+        // Parse Google Sheets JSON response
+        const jsonString = text.substring(47).slice(0, -2);
+        const data = JSON.parse(jsonString);
+
+        const parsedData = parseSheetData(data);
+
+        // Cache the result
+        config.cache = parsedData;
+        config.lastLoaded = Date.now();
+
+        return parsedData;
+
+    } catch (error) {
+        console.error(`Error loading ${courseKey}:`, error);
+        return getDefaultData(courseKey);
+    }
+}
+
+function parseSheetData(data) {
+    const rows = data.table.rows;
+    const topics = [];
+
+    // Skip header row (index 0)
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        if (row.c && row.c[0] && row.c[1]) {
+            const topicName = row.c[0].v;
+            const subtopicsStr = row.c[1].v;
+
+            // Split subtopics by comma
+            const subtopics = subtopicsStr.split(',').map(s => s.trim()).filter(s => s);
+
+            topics.push({
+                name: topicName,
+                subtopics: subtopics
+            });
+        }
+    }
+
+    return topics;
+}
+
+function getDefaultData(courseKey) {
+    const defaults = {
+        course1: [
+            {
+                name: "Week 1: C Basics",
+                subtopics: ["Variables", "Data Types", "Operators", "Input/Output"]
             },
-            course1: {
-                sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
-                sheetName: 'Python Syllabus',
-                title: 'Python Course',
-                subtitle: 'Learn Python programming step by step',
-                cache: null,
-                lastLoaded: null
+            {
+                name: "Week 2: Control Flow",
+                subtopics: ["Loops", "Conditionals", "Switch Statements"]
+            }
+        ],
+        course2: [
+            {
+                name: "Python Basics",
+                subtopics: ["Variables", "Data Types", "Functions", "Modules"]
             },
-            course3: {
-                sheetId: '1iSq0tfh1Gl9yUosonLwCNIjvljaAD94e8cbBhd8XVjM',
-                sheetName: 'Web-Dev',
-                title: 'Web Development',
-                subtitle: 'Build modern web applications',
-                cache: null,
-                lastLoaded: null
+            {
+                name: "Advanced Python",
+                subtopics: ["OOP", "File Handling", "Libraries"]
             }
-        };
-
-        // Cache duration (5 minutes)
-        const CACHE_DURATION = 5 * 60 * 1000;
-
-        let currentCourse = null;
-
-        // Optimized sheet loading with caching
-        async function loadSheetData(courseKey) {
-            const config = SHEET_CONFIGS[courseKey];
-            
-            // Check cache first
-            if (config.cache && config.lastLoaded && 
-                (Date.now() - config.lastLoaded) < CACHE_DURATION) {
-                console.log(`Using cached data for ${courseKey}`);
-                return config.cache;
+        ],
+        course3: [
+            {
+                name: "Frontend",
+                subtopics: ["HTML", "CSS", "JavaScript", "React"]
+            },
+            {
+                name: "Backend",
+                subtopics: ["Node.js", "Databases", "APIs"]
             }
+        ]
+    };
 
-            const sheetUrl = `https://docs.google.com/spreadsheets/d/${config.sheetId}/gviz/tq?tqx=out:json&sheet=${config.sheetName}`;
-            
-            try {
-                console.log(`Loading fresh data for ${courseKey}`);
-                const response = await fetch(sheetUrl);
-                const text = await response.text();
-                
-                // Parse Google Sheets JSON response
-                const jsonString = text.substring(47).slice(0, -2);
-                const data = JSON.parse(jsonString);
-                
-                const parsedData = parseSheetData(data);
-                
-                // Cache the result
-                config.cache = parsedData;
-                config.lastLoaded = Date.now();
-                
-                return parsedData;
-                
-            } catch (error) {
-                console.error(`Error loading ${courseKey}:`, error);
-                return getDefaultData(courseKey);
-            }
-        }
+    return defaults[courseKey] || [];
+}
 
-        function parseSheetData(data) {
-            const rows = data.table.rows;
-            const topics = [];
-            
-            // Skip header row (index 0)
-            for (let i = 1; i < rows.length; i++) {
-                const row = rows[i];
-                if (row.c && row.c[0] && row.c[1]) {
-                    const topicName = row.c[0].v;
-                    const subtopicsStr = row.c[1].v;
-                    
-                    // Split subtopics by comma
-                    const subtopics = subtopicsStr.split(',').map(s => s.trim()).filter(s => s);
-                    
-                    topics.push({
-                        name: topicName,
-                        subtopics: subtopics
-                    });
-                }
-            }
-            
-            return topics;
-        }
+async function openPopup(courseKey) {
+    const backdrop = document.getElementById('backdrop');
+    const popup = document.getElementById('popup');
+    const body = document.body;
 
-        function getDefaultData(courseKey) {
-            const defaults = {
-                course1: [
-                    {
-                        name: "Week 1: C Basics",
-                        subtopics: ["Variables", "Data Types", "Operators", "Input/Output"]
-                    },
-                    {
-                        name: "Week 2: Control Flow",
-                        subtopics: ["Loops", "Conditionals", "Switch Statements"]
-                    }
-                ],
-                course2: [
-                    {
-                        name: "Python Basics",
-                        subtopics: ["Variables", "Data Types", "Functions", "Modules"]
-                    },
-                    {
-                        name: "Advanced Python",
-                        subtopics: ["OOP", "File Handling", "Libraries"]
-                    }
-                ],
-                course3: [
-                    {
-                        name: "Frontend",
-                        subtopics: ["HTML", "CSS", "JavaScript", "React"]
-                    },
-                    {
-                        name: "Backend",
-                        subtopics: ["Node.js", "Databases", "APIs"]
-                    }
-                ]
-            };
-            
-            return defaults[courseKey] || [];
-        }
+    currentCourse = courseKey;
+    const config = SHEET_CONFIGS[courseKey];
 
-        async function openPopup(courseKey) {
-            const backdrop = document.getElementById('backdrop');
-            const popup = document.getElementById('popup');
-            const body = document.body;
-            
-            currentCourse = courseKey;
-            const config = SHEET_CONFIGS[courseKey];
-            
-            // Update popup title and subtitle
-            document.getElementById('popupTitle').textContent = config.title;
-            document.getElementById('popupSubtitle').textContent = config.subtitle;
-            
-            // Show popup with loading state
-            backdrop.style.display = 'block';
-            popup.style.display = 'flex';
-            body.style.overflow = 'hidden';
-            
-            // Reset content
-            document.getElementById('popupContent').innerHTML = `
+    // Update popup title and subtitle
+    document.getElementById('popupTitle').textContent = config.title;
+    document.getElementById('popupSubtitle').textContent = config.subtitle;
+
+    // Show popup with loading state
+    backdrop.style.display = 'block';
+    popup.style.display = 'flex';
+    body.style.overflow = 'hidden';
+
+    // Reset content
+    document.getElementById('popupContent').innerHTML = `
                 <div class="loading-message">
                     <div style="font-size: 18px; margin-bottom: 10px;">📊</div>
                     <div>Loading ${config.title} content...</div>
                 </div>
             `;
-            
-            // Trigger animation
-            setTimeout(() => {
-                popup.classList.add('active');
-            }, 10);
-            
-            // Load and generate content
-            const topicsData = await loadSheetData(courseKey);
-            generateDropdowns(topicsData);
-        }
 
-        function generateDropdowns(topicsData) {
-            const popupContent = document.getElementById('popupContent');
-            
-            if (!topicsData || topicsData.length === 0) {
-                popupContent.innerHTML = `
+    // Trigger animation
+    setTimeout(() => {
+        popup.classList.add('active');
+    }, 10);
+
+    // Load and generate content
+    const topicsData = await loadSheetData(courseKey);
+    generateDropdowns(topicsData);
+}
+
+function generateDropdowns(topicsData) {
+    const popupContent = document.getElementById('popupContent');
+
+    if (!topicsData || topicsData.length === 0) {
+        popupContent.innerHTML = `
                     <div class="error-message">
                         <div style="font-size: 18px; margin-bottom: 10px;">⚠️</div>
                         <div>Syllabus is not yet updated</div>
@@ -485,115 +485,152 @@ document.addEventListener('keypress', function (e) {
                         </div>
                     </div>
                 `;
-                return;
-            }
-            
-            // Clear loading message
-            popupContent.innerHTML = '';
-            
-            // Generate dropdown for each topic
-            topicsData.forEach((topic, index) => {
-                const dropdownContainer = document.createElement('div');
-                dropdownContainer.className = 'dropdown-container';
-                
-                const dropdown = document.createElement('div');
-                dropdown.className = 'dropdown';
-                
-                const button = document.createElement('button');
-                button.className = 'dropdown-btn';
-                button.onclick = () => toggleDropdown(button);
-                button.innerHTML = `
+        return;
+    }
+
+    // Clear loading message
+    popupContent.innerHTML = '';
+
+    // Generate dropdown for each topic
+    topicsData.forEach((topic, index) => {
+        const dropdownContainer = document.createElement('div');
+        dropdownContainer.className = 'dropdown-container';
+
+        const dropdown = document.createElement('div');
+        dropdown.className = 'dropdown';
+
+        const button = document.createElement('button');
+        button.className = 'dropdown-btn';
+        button.onclick = () => toggleDropdown(button);
+        button.innerHTML = `
                     ${topic.name}
                     <span class="dropdown-icon">▼</span>
                 `;
-                
-                const content = document.createElement('div');
-                content.className = 'dropdown-content';
-                
-                // Add subtopics
-                topic.subtopics.forEach(subtopic => {
-                    const item = document.createElement('div');
-                    item.className = 'dropdown-item';
-                    item.textContent = subtopic;
-                    item.onclick = () => handleSubtopicClick(topic.name, subtopic);
-                    content.appendChild(item);
-                });
-                
-                dropdown.appendChild(button);
-                dropdown.appendChild(content);
-                dropdownContainer.appendChild(dropdown);
-                popupContent.appendChild(dropdownContainer);
-            });
-        }
 
-        function toggleDropdown(button) {
-            const dropdown = button.nextElementSibling;
-            const isActive = dropdown.classList.contains('active');
-            
-            // Close all other dropdowns
-            const allDropdowns = document.querySelectorAll('.dropdown-content');
-            const allButtons = document.querySelectorAll('.dropdown-btn');
-            
-            allDropdowns.forEach(d => d.classList.remove('active'));
-            allButtons.forEach(b => b.classList.remove('active'));
-            
-            // Toggle current dropdown
-            if (!isActive) {
-                dropdown.classList.add('active');
-                button.classList.add('active');
-            }
-        }
+        const content = document.createElement('div');
+        content.className = 'dropdown-content';
 
-        function handleSubtopicClick(topicName, subtopic) {
-            console.log(`${currentCourse}: ${topicName} > ${subtopic}`);
-            // You can add custom logic here for different courses
-            alert(`Course: ${SHEET_CONFIGS[currentCourse].title}\nTopic: ${topicName}\nSubtopic: ${subtopic}`);
-        }
-
-        function closePopup() {
-            const backdrop = document.getElementById('backdrop');
-            const popup = document.getElementById('popup');
-            const body = document.body;
-            
-            popup.classList.remove('active');
-            
-            setTimeout(() => {
-                backdrop.style.display = 'none';
-                popup.style.display = 'none';
-                body.style.overflow = 'auto';
-                
-                // Close all dropdowns
-                const dropdowns = document.querySelectorAll('.dropdown-content');
-                const buttons = document.querySelectorAll('.dropdown-btn');
-                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-                buttons.forEach(button => button.classList.remove('active'));
-                
-                currentCourse = null;
-            }, 300);
-        }
-
-
-        // Close popup when pressing Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closePopup();
-            }
+        // Add subtopics
+        topic.subtopics.forEach(subtopic => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = subtopic;
+            item.onclick = () => handleSubtopicClick(topic.name, subtopic);
+            content.appendChild(item);
         });
 
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.dropdown')) {
-                const dropdowns = document.querySelectorAll('.dropdown-content');
-                const buttons = document.querySelectorAll('.dropdown-btn');
-                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-                buttons.forEach(button => button.classList.remove('active'));
-            }
-        });
+        dropdown.appendChild(button);
+        dropdown.appendChild(content);
+        dropdownContainer.appendChild(dropdown);
+        popupContent.appendChild(dropdownContainer);
+    });
+}
 
-        // Preload popular sheets (optional optimization)
-        window.addEventListener('DOMContentLoaded', function() {
-            // Preload the first course data
-            setTimeout(() => {
-                loadSheetData('course1');
-            }, 1000);
+function toggleDropdown(button) {
+    const dropdown = button.nextElementSibling;
+    const isActive = dropdown.classList.contains('active');
+
+    // Close all other dropdowns
+    const allDropdowns = document.querySelectorAll('.dropdown-content');
+    const allButtons = document.querySelectorAll('.dropdown-btn');
+
+    allDropdowns.forEach(d => d.classList.remove('active'));
+    allButtons.forEach(b => b.classList.remove('active'));
+
+    // Toggle current dropdown
+    if (!isActive) {
+        dropdown.classList.add('active');
+        button.classList.add('active');
+    }
+}
+
+function handleSubtopicClick(topicName, subtopic) {
+    console.log(`${currentCourse}: ${topicName} > ${subtopic}`);
+    // You can add custom logic here for different courses
+    alert(`Course: ${SHEET_CONFIGS[currentCourse].title}\nTopic: ${topicName}\nSubtopic: ${subtopic}`);
+}
+
+function closePopup() {
+    const backdrop = document.getElementById('backdrop');
+    const popup = document.getElementById('popup');
+    const body = document.body;
+
+    popup.classList.remove('active');
+
+    setTimeout(() => {
+        backdrop.style.display = 'none';
+        popup.style.display = 'none';
+        body.style.overflow = 'auto';
+
+        // Close all dropdowns
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        const buttons = document.querySelectorAll('.dropdown-btn');
+        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+        buttons.forEach(button => button.classList.remove('active'));
+
+        currentCourse = null;
+    }, 300);
+}
+
+
+// Close popup when pressing Escape key
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closePopup();
+    }
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function (event) {
+    if (!event.target.closest('.dropdown')) {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        const buttons = document.querySelectorAll('.dropdown-btn');
+        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+        buttons.forEach(button => button.classList.remove('active'));
+    }
+});
+
+// Preload popular sheets (optional optimization)
+window.addEventListener('DOMContentLoaded', function () {
+    // Preload the first course data
+    setTimeout(() => {
+        loadSheetData('course1');
+    }, 1000);
+});
+// Countdown timer for course launch
+function updateCountdown() {
+    const launchDate = new Date('July 21, 2025 18:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = launchDate - now;
+
+    // Calculate days, hours, minutes
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Update all timers on the page (3 courses)
+    for (let i = 1; i < 3; i++) {
+        const daysElement = document.getElementById(`days${i}`);
+        const hoursElement = document.getElementById(`hours${i}`);
+        const minutesElement = document.getElementById(`minutes${i}`);
+
+        if (daysElement) daysElement.textContent = days.toString().padStart(2, '0');
+        if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
+        if (minutesElement) minutesElement.textContent = minutes.toString().padStart(2, '0');
+    }
+
+    // If the countdown is finished
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.querySelectorAll('.launch-timer').forEach(timer => {
+            timer.innerHTML = '<div class="timer-value" style="color: var(--accent-color);">Launched!</div>';
         });
+    }
+}
+
+// Initialize and update countdown every minute
+let countdownTimer;
+document.addEventListener('DOMContentLoaded', function () {
+    updateCountdown(); // Run immediately
+    countdownTimer = setInterval(updateCountdown, 60000); // Update every minute
+});

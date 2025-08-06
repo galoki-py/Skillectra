@@ -600,7 +600,7 @@ window.addEventListener('DOMContentLoaded', function () {
 // Countdown timer for course launch
 function updateCountdown() {
     const launchDate = new Date('July 21, 2025 18:00:00').getTime();
-    const now = new Date().getTime();
+    const now = new Date('September 21, 2025').getTime();
     const distance = launchDate - now;
 
     // Calculate days, hours, minutes
@@ -633,4 +633,5 @@ let countdownTimer;
 document.addEventListener('DOMContentLoaded', function () {
     updateCountdown(); // Run immediately
     countdownTimer = setInterval(updateCountdown, 60000); // Update every minute
+
 });
